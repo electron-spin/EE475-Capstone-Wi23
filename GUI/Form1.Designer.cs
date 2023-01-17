@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System;
 
 namespace GUI {
     partial class Form1 {
@@ -87,6 +88,7 @@ namespace GUI {
         private unsafe byte* generatorMemPtr;
         private unsafe byte* readerMemPtr;
         private unsafe byte* beginPtr;
+        private IntPtr memIntPtr;
     }
 }
 

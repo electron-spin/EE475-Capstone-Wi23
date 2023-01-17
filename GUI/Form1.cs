@@ -20,7 +20,7 @@ namespace GUI {
 
         private unsafe void InitMMF () {
             // Allocate a block of unmanaged memory and return an IntPtr object.	
-            IntPtr memIntPtr = Marshal.AllocHGlobal(WORD_OFFSET * 4 * 2);
+            this.memIntPtr = Marshal.AllocHGlobal(WORD_OFFSET * 4 * 2);
 
             // Get a byte pointer from the IntPtr object.
             this.generatorMemPtr = (byte*) memIntPtr.ToPointer();
@@ -34,7 +34,7 @@ namespace GUI {
 
         private unsafe void button1_Click (object sender, EventArgs e) {
             // Free the block of unmanaged memory.
-            Marshal.FreeHGlobal((IntPtr) this.beginPtr);
+            Marshal.FreeHGlobal(this.memIntPtr);
             Application.Exit();
         }
 
