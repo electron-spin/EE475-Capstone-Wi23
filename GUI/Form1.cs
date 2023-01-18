@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Diagnostics;
 
 namespace GUI {
     public partial class Form1 : Form {
@@ -30,6 +31,9 @@ namespace GUI {
 
             // Save start for freeing mem on exit
             this.beginPtr = (byte*) memIntPtr.ToPointer();
+
+            Console.WriteLine("WORD_OFFSET * 4 * 2 * 8 = " + (WORD_OFFSET * 4 * 2 * 8));
+            Console.WriteLine("Bytes of memory allocated: " + (WORD_OFFSET * 4 * 2)+"\n");
         }
 
         private unsafe void button1_Click (object sender, EventArgs e) {
@@ -74,8 +78,11 @@ namespace GUI {
             // Write the data.
             writeStream.Write(message, 0, message.Length);
 
+            Console.WriteLine($"W: {x}, {y}");
+
             // Close the stream.
             writeStream.Close();
+
 
             if (this.offsetCount >= WORD_OFFSET) {
                 // Create another UnmanagedMemoryStream object using a pointer to unmanaged memory.
@@ -100,18 +107,27 @@ namespace GUI {
                 readY |= (UInt16) outMessage[3];
                 label2.Text = "" + readX + ", " + readY;
                 this.readerMemPtr += 32;
+
+                Console.WriteLine($"R: {readX}, {readY}");
             }
 
             if (this.offsetCount < WORD_OFFSET) offsetCount++;
 
             this.generatorMemPtr += 32;
 
+            Console.WriteLine($"BeginPtr: {new IntPtr(this.beginPtr)}");
+            Console.WriteLine($"readPtr: {new IntPtr(this.readerMemPtr)}");
+            Console.WriteLine($"genPtr: {new IntPtr(this.generatorMemPtr)}");
+
+
             if (this.generatorMemPtr >= this.beginPtr + (WORD_OFFSET * 4 * 2 * 8)) {
                 this.generatorMemPtr = this.beginPtr;
+                Console.WriteLine("Reset generator to beginning");
             }
             
             if (this.readerMemPtr >= this.beginPtr + (WORD_OFFSET * 4 * 2 * 8)) {
                 this.readerMemPtr = this.beginPtr;
+                Console.WriteLine("Reset reader to beginning");
             }
         }
     }

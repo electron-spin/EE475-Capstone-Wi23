@@ -33,7 +33,7 @@ namespace GUI {
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(733, 648);
+            this.button1.Location = new System.Drawing.Point(749, 580);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(344, 46);
             this.button1.TabIndex = 0;
@@ -45,7 +45,7 @@ namespace GUI {
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(700, 317);
+            this.label1.Location = new System.Drawing.Point(713, 287);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(407, 54);
             this.label1.TabIndex = 1;
@@ -55,9 +55,9 @@ namespace GUI {
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("MS Gothic", 14.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(80, 487);
+            this.label2.Location = new System.Drawing.Point(871, 429);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(153, 78);
+            this.label2.Size = new System.Drawing.Size(92, 47);
             this.label2.TabIndex = 2;
             this.label2.Text = "???";
             // 
@@ -65,7 +65,8 @@ namespace GUI {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1763, 706);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1781, 813);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
