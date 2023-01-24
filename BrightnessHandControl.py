@@ -35,10 +35,13 @@ while True:
         cv2.circle(img, (cx, cy), 10, (255, 0, 0), cv2.FILLED)
 
         length = math.hypot(x2-x1, y2-y1)
-        print(length)
+        # print(length)
 
         if(length < 30):
             cv2.circle(img, (cx, cy), 10, (0, 255, 0), cv2.FILLED)
+            sbc.set_brightness(0)
+        else:
+            sbc.set_brightness(100)
 
     cTime = time.time()
     fps = 1/ (cTime - pTime)
@@ -49,7 +52,7 @@ while True:
                 1, (255, 0, 0), 2)
 
     # Brightness Control
-    brightness = sbc.list_monitors()
+    brightness = sbc.get_brightness()
     print(brightness)
 
     cv2.imshow("Img", img)
