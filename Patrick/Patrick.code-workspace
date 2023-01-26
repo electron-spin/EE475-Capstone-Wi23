@@ -1,7 +1,11 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": "../../EE-474-Embedded-Systems"
+		},
+		{
+			"name": "ESP32_Patrick",
+			"path": "ESP32_Patrick"
 		}
 	],
 	"settings": {}
