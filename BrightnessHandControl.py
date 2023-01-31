@@ -13,16 +13,20 @@ capture = cv2.VideoCapture(0)
 capture.set(3, wCam) # Set Display width
 capture.set(4, hCam) # Set Display height
 pTime = 0
-
+startTime = -1
 detector = hdm.HandDetector(detectionCon=0.7)
 
+open('test.txt', 'w').close()
+currTime = time.time()
 while True:
     success, img = capture.read()
     # Draws the hand
-    detector.findHands(img)
+    detector.findHands(img, draw=False)
     lmlist = detector.findPosition(img, draw=False)
     if(len(lmlist) != 0):
-        # print(lmlist[4], lmlist[8])
+        print(lmlist[4], lmlist[8])
+        with open('test.txt', 'w') as f:
+            f.write(str(lmlist[4]) + str(lmlist[8]) + str(lmlist[12]) + str(lmlist[16]) + str(lmlist[20]) + '\n')
         x1, y1 = lmlist[4][1], lmlist[4][2]
         x2, y2 = lmlist[8][1], lmlist[8][2]
         cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
@@ -39,9 +43,22 @@ while True:
 
         if(length < 30):
             cv2.circle(img, (cx, cy), 10, (0, 255, 0), cv2.FILLED)
-            sbc.set_brightness(0)
-        else:
-            sbc.set_brightness(100)
+            if (startTime == -1):
+                startTime = time.time()
+                # print("This is wroking")
+        elif(startTime != -1):
+            endTime = time.time()
+            if (endTime - startTime >= 1) and (cx < 680 and cx > 480) and (cy < 200 and cy > 0):
+                if (sbc.get_brightness()[0] <= 10):
+                    sbc.set_brightness(100)
+                elif (sbc.get_brightness()[0] <= 100):
+                    sbc.set_brightness(0)
+            startTime = -1
+
+        # inside length  < 30 have a bool that gets notted everytime that length < 30
+        # if (true) then set brightness to whatever
+        # either have bool control the enabling of set brightness or make the brightness a variable value that chnages
+        # with each click so for now either 0 or 100
 
     cTime = time.time()
     fps = 1/ (cTime - pTime)
@@ -53,7 +70,6 @@ while True:
 
     # Brightness Control
     brightness = sbc.get_brightness()
-    print(brightness)
 
     cv2.imshow("Img", img)
     if cv2.waitKey(1) & 0xFF == ord('q'):
