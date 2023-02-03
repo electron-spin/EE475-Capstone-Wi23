@@ -3,10 +3,16 @@ import numpy as np
 import time
 import HandDetectionModule as hdm
 import math
-import screen_brightness_control as sbc
 
 ###############################
 wCam, hCam = 640, 480
+fingers = {
+    "THUMB": 4,
+    "INDEX": 8,
+    "MIDDLE": 12,
+    "RING": 16,
+    "PINKY": 20
+}
 ###############################
 
 capture = cv2.VideoCapture(0)
@@ -24,11 +30,18 @@ while True:
     detector.findHands(img, draw=False)
     lmlist = detector.findPosition(img, draw=False)
     if(len(lmlist) != 0):
-        print(lmlist[4], lmlist[8])
         with open('test.txt', 'w') as f:
-            f.write(str(lmlist[4]) + str(lmlist[8]) + str(lmlist[12]) + str(lmlist[16]) + str(lmlist[20]) + '\n')
-        x1, y1 = lmlist[4][1], lmlist[4][2]
-        x2, y2 = lmlist[8][1], lmlist[8][2]
+            # turn 5 finger's positions into string
+            output_string = "{\n"
+            for key in fingers:
+                output_string += "\t{}:\tX:{} Y:{}\n".format(key, lmlist[fingers[key]][1], lmlist[fingers[key]][2])
+            output_string += "}\n"
+
+            f.write(output_string)
+            print(output_string)
+
+        x1, y1 = lmlist[fingers["THUMB"]][1], lmlist[fingers["THUMB"]][2]
+        x2, y2 = lmlist[fingers["INDEX"]][1], lmlist[fingers["INDEX"]][2]
         cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
 
         cv2.circle(img, (x1, y1), 10, (255, 0, 0), cv2.FILLED)
@@ -48,12 +61,12 @@ while True:
                 # print("This is wroking")
         elif(startTime != -1):
             endTime = time.time()
-            if (endTime - startTime >= 1) and (cx < 680 and cx > 480) and (cy < 200 and cy > 0):
-                if (sbc.get_brightness()[0] <= 10):
-                    sbc.set_brightness(100)
-                elif (sbc.get_brightness()[0] <= 100):
-                    sbc.set_brightness(0)
-            startTime = -1
+           # if (endTime - startTime >= 1) and (cx < 680 and cx > 480) and (cy < 200 and cy > 0):
+                #if (sbc.get_brightness()[0] <= 10):
+                    #sbc.set_brightness(100)
+                #elif (sbc.get_brightness()[0] <= 100):
+                    #sbc.set_brightness(0)
+            #startTime = -1
 
         # inside length  < 30 have a bool that gets notted everytime that length < 30
         # if (true) then set brightness to whatever
@@ -69,7 +82,7 @@ while True:
                 1, (255, 0, 0), 2)
 
     # Brightness Control
-    brightness = sbc.get_brightness()
+    #brightness = sbc.get_brightness()
 
     cv2.imshow("Img", img)
     if cv2.waitKey(1) & 0xFF == ord('q'):

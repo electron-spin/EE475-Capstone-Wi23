@@ -5,20 +5,30 @@
 #include <chrono>
 #include <time.h>
 
+using namespace std;
+
 int main(int argc, char **argv) {
+    // TODO: create processing object
+
+
     while (1) {
-    std::cout << "" << std::endl;
-        auto start = std::chrono::high_resolution_clock::now();
-        std::fstream file("../../test.txt");
-        std::string buf;
+    cout << "" << endl;
+        auto start = chrono::high_resolution_clock::now();
+        fstream file("../../test.txt");
+        string result;
+        string buf;
         if (file.is_open()) {
             // keep reopening file since it's getting modified
-            std::getline(file, buf);
+            // get  all 7 lines
+            for (int i = 0; i < 7; i++) {
+                getline(file, buf);
+                result += buf + "\n";
+            }
             file.close();
         }
-        auto stop = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-        std::cout << "Read: " << buf << " in " << duration.count() << " us";
+        auto stop = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+        std::cout << "Time taken to read: " << duration.count() << " us" << endl << result;
 
         struct timespec tim, tim2;
         tim.tv_sec = 0;
