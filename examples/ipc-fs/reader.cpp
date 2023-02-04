@@ -7,17 +7,22 @@ vector<pair<int,int>> convertToHandLandmarks(string stringLandmarks) {
 
     size_t pos = 0;
     for (int i = 0; i < 5; i++) {
-        size_t startX = stringLandmarks.find("X",pos);
-        size_t endX = stringLandmarks.find("Y",startX);
-        size_t endY = stringLandmarks.find("\n",endX);
+        //cout << "pos: " << pos << endl;
+        size_t startX = stringLandmarks.find("X",pos) + 2;
+        size_t endX = stringLandmarks.find("Y",startX) - 1;
+        size_t startY = endX + 3;
+        size_t endY = stringLandmarks.find("\n",startY);
 
-        int x = stoi(stringLandmarks.substr(startX+2, endX-startX-3));
-        int y = stoi(stringLandmarks.substr(endX+2, endY-endX-2));
-        cout << "x: " << x << " y: " << y << endl;
+        //cout << "startX: " << startX << " endX: " << endX << " startY: " << startY << " endY: " << endY << endl;
+        //cout << stringLandmarks[startX] << ", " << stringLandmarks[startX + (endX-startX) - 1] << endl;
+        //cout << stringLandmarks[startY] << ", " << stringLandmarks[startY + (endY-startY) - 1] << endl;
+        int x = stoi(stringLandmarks.substr(startX, endX-startX));
+        int y = stoi(stringLandmarks.substr(startY, endY-startY));
+        //cout << "x: " << x << " y: " << y << endl;
 
         landmarks[i] = make_pair(x,y);
 
-        pos = endY;
+        pos = stringLandmarks.find("\t", endY + 2);
     }
     return landmarks;
 }
@@ -44,8 +49,14 @@ int main(int argc, char **argv) {
         // auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
         //std::cout << "Time taken to read: " << duration.count() << " us" << endl << result;
 
-        vector<pair<int,int>> landmarks = convertToHandLandmarks(result);
-        processor.processHandLandmarks(landmarks);
+        vector<pair<int,int>> landmarks;
+        try {
+            landmarks = convertToHandLandmarks(result);
+            processor.processHandLandmarks(landmarks);
+        } catch (exception e) {
+            cout << "Error: " << e.what() << endl;
+            continue;
+        }
 
         //struct timespec tim, tim2;
         //tim.tv_sec = 0;

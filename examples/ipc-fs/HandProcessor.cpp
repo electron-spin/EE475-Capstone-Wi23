@@ -10,7 +10,7 @@ void HandProcessor::processHandLandmarks(vector<pair<int,int>> landmark) {
     cout << "Brightness: " << brightness << ", Color: " << color << endl;
     if (!state) { // idle
         if (isPinching(landmark[0], landmark[1])) {
-            if (isThumbLeftSide(landmark[0])) state += 2; // adjusting color
+            if (!isThumbLeftSide(landmark[0])) state += 3; // adjusting color (flipped)
             else state++; // adjusting brightness
             //previousHandLandmarks = landmark; // start new motion
         }
@@ -56,5 +56,8 @@ bool HandProcessor::isPinching(pair<int,int> thumbLandmark, pair<int,int> indexL
 //}
 
 int HandProcessor::adjustValue(pair<int,int> indexLandmark) {
-    return (indexLandmark.second - VERT_PADDING) / levelChangeThreshold;
+    int newValue = 10 - (indexLandmark.second - VERT_PADDING) / levelChangeThreshold;
+    if (newValue < 0) return 0;
+    else if (newValue > 10) return 10;
+    return newValue;
 }
