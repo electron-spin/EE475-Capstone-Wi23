@@ -18,19 +18,20 @@ void loop() {
     int brightnessValue = map(Serial.read(), 0, 10, 0, 255);
     int colorValue = map(Serial.read(), 0, 10, 0, 255);
     for (int i = 0; i < NUM_LEDS; i++) {
-      switch (colorValue) {
-        case 0:
-          leds[i] = CRGB::Red;
-          break;
-        case 1:
-          leds[i] = CRGB::Green;
-          break;
-        case 2:
-          leds[i] = CRGB::Blue;
-          break;
-        // Add more cases for different colors
-      }
-      leds[i].setBrightness(brightnessValue);
+      leds[i] = CHSV(colorValue, 0, brightnessValue);
+//       switch (colorValue) {
+//         case 0:
+//           leds[i] = CRGB::Red;
+//           break;
+//         case 1:
+//           leds[i] = CRGB::Green;
+//           break;
+//         case 2:
+//           leds[i] = CRGB::Blue;
+//           break;
+//         // Add more cases for different colors
+//       }
+//       leds[i].setBrightness(brightnessValue);
     }
     FastLED.show();
   }
