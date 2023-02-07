@@ -105,4 +105,9 @@ class HandProcessor {
      * @brief Update padding based on the current pinch distance.
      */
     void updatePadding(int pinchDistance);
+
+    /**
+     * @brief Sends the brightness and color values to the esp32 arduino.
+     */
+    void sendToSerial(int brightness, int color);
 };
