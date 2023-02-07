@@ -6,6 +6,7 @@ import math
 
 ###############################
 wCam, hCam = 640, 480
+#wCam, hCam = 1920, 1080
 fingers = {
     "THUMB": 4,
     "INDEX": 8,
@@ -14,7 +15,6 @@ fingers = {
     "PINKY": 20
 }
 ###############################
-
 capture = cv2.VideoCapture(0)
 capture.set(3, wCam) # Set Display width
 capture.set(4, hCam) # Set Display height
@@ -26,6 +26,7 @@ open('test.txt', 'w').close()
 currTime = time.time()
 while True:
     success, img = capture.read()
+    # img = cv2.resize(img, (wCam, hCam))
     # Draws the hand
     detector.findHands(img, draw=False)
     lmlist = detector.findPosition(img, draw=False)

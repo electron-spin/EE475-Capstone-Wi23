@@ -1,13 +1,15 @@
 #include "HandProcessor.h"
 
-HandProcessor::HandProcessor() : brightness(5), color(0), state(0) {
+HandProcessor::HandProcessor() : brightness(5), color(0), state(0), vertPadding(50) {
     //yElevation = levelChangeThreshold * 5; // 5 is the middle level
     //previousHandLandmarks = ;
     //previousHandLandmarks->point = make_pair(-1,-1);
+    levelChangeThreshold = (HEIGHT - (vertPadding*2)) / 10;
 }
 
 void HandProcessor::processHandLandmarks(vector<pair<int,int>> landmark) {
     cout << "Brightness: " << brightness << ", Color: " << color << endl;
+    cout << "Pinch Length: " << getPinchDistance(landmark[0], landmark[1]) << endl;
     if (!state) { // idle
         if (isPinching(landmark[0], landmark[1])) {
             if (!isThumbLeftSide(landmark[0])) state += 3; // adjusting color (flipped)
@@ -24,6 +26,7 @@ void HandProcessor::processHandLandmarks(vector<pair<int,int>> landmark) {
         } else {
             // adjust the brightness
             brightness = adjustValue(landmark[1]);
+            //updatePadding(getPinchDistance(landmark[0], landmark[1]));
         }
     } else if (state == 4) {
         if (isPinching(landmark[0], landmark[1])) {
@@ -31,6 +34,7 @@ void HandProcessor::processHandLandmarks(vector<pair<int,int>> landmark) {
         } else {
             // adjust the color
             color = adjustValue(landmark[1]);
+            //updatePadding(getPinchDistance(landmark[0], landmark[1]));
         }
     } else if (state == 5) {
         //previousHandLandmarks = NULL;
@@ -56,8 +60,22 @@ bool HandProcessor::isPinching(pair<int,int> thumbLandmark, pair<int,int> indexL
 //}
 
 int HandProcessor::adjustValue(pair<int,int> indexLandmark) {
-    int newValue = 10 - (indexLandmark.second - VERT_PADDING) / levelChangeThreshold;
+    int newValue = 10 - (indexLandmark.second - vertPadding) / levelChangeThreshold;
     if (newValue < 0) return 0;
     else if (newValue > 10) return 10;
     return newValue;
 }
+
+int HandProcessor::getPinchDistance(pair<int,int> thumbLandmark, pair<int,int> indexLandmark) {
+    int xDiff = thumbLandmark.first - indexLandmark.first;
+    int yDiff = thumbLandmark.second - indexLandmark.second;
+    return sqrt(pow(xDiff, 2) + pow(yDiff, 2));
+}
+
+// void HandProcessor::updatePadding(int pinchDistance) {
+//     int newPadding = -pinchDistance / 3 + 162;
+//     if (newPadding < 0) newPadding = 0;
+//     else if (newPadding > 125) newPadding = 125;
+//     vertPadding = newPadding;
+//     levelChangeThreshold = (HEIGHT - (vertPadding*2)) / 10;
+// }
