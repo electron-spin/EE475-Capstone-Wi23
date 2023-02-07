@@ -14,13 +14,13 @@ class HandProcessor {
 
     const int HEIGHT = 300;
     const int WIDTH = 690;
-    const int VERT_PADDING = 50; // padding on both the top and bottom to ignore
 
     // arbitrary distance between thumb and index finger to detect a pinch
-    const int pinchThreshold = 30;
+    const int pinchThreshold = 15;
 
     // roughly 300 (height) / 10 (levels) = 30
-    const int levelChangeThreshold = (HEIGHT - (VERT_PADDING*2)) / 10;
+    int vertPadding; // padding on both the top and bottom to ignore
+    int levelChangeThreshold;
 
     int brightness;
     int color;
@@ -92,4 +92,17 @@ class HandProcessor {
      * @return The calculated value in the range 0-10.
      */
     int adjustValue(pair<int,int> indexLandmark);
+
+    /**
+     * @brief Gets the distance between thumb and index finger.
+     * @param thumbLandmark The current thumb landmark.
+     * @param indexLandmark The current index finger landmark.
+     * @return The distance between the thumb and index finger.
+     */
+    int getPinchDistance(pair<int,int> thumbLandmark, pair<int,int> indexLandmark);
+
+    /**
+     * @brief Update padding based on the current pinch distance.
+     */
+    void updatePadding(int pinchDistance);
 };
