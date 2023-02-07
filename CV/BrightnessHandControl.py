@@ -22,7 +22,7 @@ pTime = 0
 startTime = -1
 detector = hdm.HandDetector(detectionCon=0.7)
 
-open('test.txt', 'w').close()
+open('../SharedMem.txt', 'w').close()
 currTime = time.time()
 while True:
     success, img = capture.read()
@@ -31,7 +31,7 @@ while True:
     detector.findHands(img, draw=False)
     lmlist = detector.findPosition(img, draw=False)
     if(len(lmlist) != 0):
-        with open('test.txt', 'w') as f:
+        with open('../SharedMem.txt', 'w') as f:
             # turn 5 finger's positions into string
             output_string = "{\n"
             for key in fingers:
@@ -62,17 +62,6 @@ while True:
                 # print("This is wroking")
         elif(startTime != -1):
             endTime = time.time()
-           # if (endTime - startTime >= 1) and (cx < 680 and cx > 480) and (cy < 200 and cy > 0):
-                #if (sbc.get_brightness()[0] <= 10):
-                    #sbc.set_brightness(100)
-                #elif (sbc.get_brightness()[0] <= 100):
-                    #sbc.set_brightness(0)
-            #startTime = -1
-
-        # inside length  < 30 have a bool that gets notted everytime that length < 30
-        # if (true) then set brightness to whatever
-        # either have bool control the enabling of set brightness or make the brightness a variable value that chnages
-        # with each click so for now either 0 or 100
 
     cTime = time.time()
     fps = 1/ (cTime - pTime)
@@ -81,9 +70,6 @@ while True:
     # FPS Display
     cv2.putText(img, f'FPS: {int(fps)}', (40, 70), cv2.FONT_HERSHEY_COMPLEX,
                 1, (255, 0, 0), 2)
-
-    # Brightness Control
-    #brightness = sbc.get_brightness()
 
     cv2.imshow("Img", img)
     if cv2.waitKey(1) & 0xFF == ord('q'):

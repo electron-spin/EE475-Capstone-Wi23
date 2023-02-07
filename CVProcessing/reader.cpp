@@ -7,18 +7,13 @@ vector<pair<int,int>> convertToHandLandmarks(string stringLandmarks) {
 
     size_t pos = 0;
     for (int i = 0; i < 5; i++) {
-        //cout << "pos: " << pos << endl;
         size_t startX = stringLandmarks.find("X",pos) + 2;
         size_t endX = stringLandmarks.find("Y",startX) - 1;
         size_t startY = endX + 3;
         size_t endY = stringLandmarks.find("\n",startY);
 
-        //cout << "startX: " << startX << " endX: " << endX << " startY: " << startY << " endY: " << endY << endl;
-        //cout << stringLandmarks[startX] << ", " << stringLandmarks[startX + (endX-startX) - 1] << endl;
-        //cout << stringLandmarks[startY] << ", " << stringLandmarks[startY + (endY-startY) - 1] << endl;
         int x = stoi(stringLandmarks.substr(startX, endX-startX));
         int y = stoi(stringLandmarks.substr(startY, endY-startY));
-        //cout << "x: " << x << " y: " << y << endl;
 
         landmarks[i] = make_pair(x,y);
 
@@ -33,21 +28,18 @@ int main(int argc, char **argv) {
     while (1) {
     cout << "" << endl;
         auto start = chrono::high_resolution_clock::now();
-        fstream file("../../test.txt");
+        fstream file("../SharedMem.txt");
         string result;
         string buf;
         if (file.is_open()) {
             // keep reopening file since it's getting modified
-            // get  all 7 lines
+            // get all 7 lines
             for (int i = 0; i < 7; i++) {
                 getline(file, buf);
                 result += buf + "\n";
             }
             file.close();
         }
-        // auto stop = chrono::high_resolution_clock::now();
-        // auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
-        //std::cout << "Time taken to read: " << duration.count() << " us" << endl << result;
 
         vector<pair<int,int>> landmarks;
         try {
@@ -57,11 +49,6 @@ int main(int argc, char **argv) {
             cout << "Error: " << e.what() << endl;
             continue;
         }
-
-        //struct timespec tim, tim2;
-        //tim.tv_sec = 0;
-        //tim.tv_nsec = 33 * 1000000UL;
-        //nanosleep(&tim, &tim2);
     }
     return 0;
 }

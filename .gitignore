@@ -1,2 +1,6 @@
 Transfer/
 *.txt
+.vscode/
+.venv/
+test
+reader
