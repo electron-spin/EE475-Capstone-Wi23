@@ -14,6 +14,7 @@ void setup() {
 }
 
 void loop() {
+  
   if (Serial.available() >= 2) {
     int brightnessValue = map(Serial.read(), 0, 10, 0, 255);
     int colorValue = map(Serial.read(), 0, 10, 0, 255);
