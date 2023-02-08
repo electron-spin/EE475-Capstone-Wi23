@@ -1,6 +1,5 @@
 #include "reader.h"
 #include <vector>
-#include "serial.cpp"
 
 vector<pair<int,int>> convertToHandLandmarks(string stringLandmarks) {
     vector<pair<int,int>> landmarks(5);
@@ -44,7 +43,7 @@ int main(int argc, char **argv) {
 
         vector<pair<int,int>> landmarks;
         try {
-            sendToSerial(10, 5);
+            serial_data(10,5);
             landmarks = convertToHandLandmarks(result);
             processor.processHandLandmarks(landmarks);
         } catch (exception e) {

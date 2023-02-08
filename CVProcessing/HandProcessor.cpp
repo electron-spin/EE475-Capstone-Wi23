@@ -1,5 +1,4 @@
 #include "HandProcessor.h"
-#include "serial.h"
 
 HandProcessor::HandProcessor() : brightness(5), color(0), state(0), vertPadding(50) {
     //yElevation = levelChangeThreshold * 5; // 5 is the middle level
@@ -81,11 +80,11 @@ int HandProcessor::getPinchDistance(pair<int,int> thumbLandmark, pair<int,int> i
     return sqrt(pow(xDiff, 2) + pow(yDiff, 2));
 }
 
-void HandProcessor::sendToSerial(int brightness, int color) {
-    serial_data(brightness, color);
-    // Serial.write(brightness);
-    // Serial.write(color);
-}
+// void HandProcessor::sendToSerial(int brightness, int color) {
+//     serial_data(brightness, color);
+//     // Serial.write(brightness);
+//     // Serial.write(color);
+// }
 
 // void HandProcessor::updatePadding(int pinchDistance) {
 //     int newPadding = -pinchDistance / 3 + 162;

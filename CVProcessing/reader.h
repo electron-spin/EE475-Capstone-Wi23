@@ -1,6 +1,7 @@
 #include <fstream>
 #include <string>
 #include "HandProcessor.h"
+#include "serial.h"
 #include <chrono>
 #include <time.h>
 //#include <unistd.h>

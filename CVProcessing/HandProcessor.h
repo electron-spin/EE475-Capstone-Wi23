@@ -1,6 +1,7 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
+#include "serial.h"
 //#include "types.h"
 
 using namespace std;
@@ -109,5 +110,5 @@ class HandProcessor {
     /**
      * @brief Sends the brightness and color values to the esp32 arduino.
      */
-    void sendToSerial(int brightness, int color);
+    // void sendToSerial(int brightness, int color);
 };
