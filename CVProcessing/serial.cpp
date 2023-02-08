@@ -39,7 +39,7 @@ void initialize() {
 }
 
 void serial_data(int brightness, int color){
-    serial_port = open("/dev/ttyUSB0", O_RDWR);
+    serial_port = open("/dev/ttyTHS1", O_RDWR);
     unsigned char msg[] = { 1, 2, 3, 4, '\r' };
     write(serial_port, msg, sizeof(msg));
 }
