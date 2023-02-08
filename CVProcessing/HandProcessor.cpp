@@ -17,7 +17,7 @@ void HandProcessor::processHandLandmarks(vector<pair<int,int>> landmark) {
     cout << "Pinch Length: " << getPinchDistance(landmark[0], landmark[1]) << endl;
 
     // TODO: Serial out color and brightness
-    sendToSerial(brightness, color);
+   // sendToSerial(brightness, color);
 
     if (!state) { // idle
         if (isPinching(landmark[0], landmark[1])) {
