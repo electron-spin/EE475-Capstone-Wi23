@@ -4,3 +4,6 @@ Transfer/
 .venv/
 test
 reader
+*.o
+*.gch
+__pycache__/

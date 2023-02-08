@@ -1,22 +1,18 @@
 #include "HandProcessor.h"
+#include "serial.h"
 
-HandProcessor::HandProcessor() : brightness(5), color(0), state(0), vertPadding(50) {
+HandProcessor::HandProcessor() : vertPadding(50), brightness(5), color(0), state(0) {
     //yElevation = levelChangeThreshold * 5; // 5 is the middle level
     //previousHandLandmarks = ;
     //previousHandLandmarks->point = make_pair(-1,-1);
 
     levelChangeThreshold = (HEIGHT - (vertPadding*2)) / 10;
-    // TODO: set up serial connection with esp32
-    initialize();
 
 }
 
 void HandProcessor::processHandLandmarks(vector<pair<int,int>> landmark) {
     cout << "Brightness: " << brightness << ", Color: " << color << endl;
     cout << "Pinch Length: " << getPinchDistance(landmark[0], landmark[1]) << endl;
-
-    // TODO: Serial out color and brightness
-   // sendToSerial(brightness, color);
 
     if (!state) { // idle
         if (isPinching(landmark[0], landmark[1])) {
@@ -50,6 +46,8 @@ void HandProcessor::processHandLandmarks(vector<pair<int,int>> landmark) {
             state = 0;
         }
     } else state = 0;
+
+    this->ser_.send(brightness, color);
 }
 
 bool HandProcessor::isThumbLeftSide(pair<int,int> thumbLandmark) {

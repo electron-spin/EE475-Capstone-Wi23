@@ -1,5 +1,7 @@
 #include "reader.h"
 #include <vector>
+#include <chrono>
+#include <thread>
 
 vector<pair<int,int>> convertToHandLandmarks(string stringLandmarks) {
     vector<pair<int,int>> landmarks(5);
@@ -27,7 +29,6 @@ int main(int argc, char **argv) {
 
     while (1) {
     cout << "" << endl;
-        auto start = chrono::high_resolution_clock::now();
         fstream file("../SharedMem.txt");
         string result;
         string buf;
@@ -43,13 +44,14 @@ int main(int argc, char **argv) {
 
         vector<pair<int,int>> landmarks;
         try {
-            serial_data(10,5);
             landmarks = convertToHandLandmarks(result);
             processor.processHandLandmarks(landmarks);
         } catch (exception e) {
             cout << "Error: " << e.what() << endl;
-            continue;
         }
+
+        // sleep for a bit to lower CPU usage
+        std::this_thread::sleep_for(std::chrono::milliseconds(33));
     }
     return 0;
 }

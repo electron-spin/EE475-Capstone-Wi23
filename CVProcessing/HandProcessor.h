@@ -57,6 +57,9 @@ class HandProcessor {
 
     private:
 
+    // Serial object for sending data to ESP32.    
+    Serial ser_;
+
     /**
      * @brief states: 0 = idle, 1 = pinched, adjusting brightness,
      * 2 = unpinched adjusting brightness, 3 = pinched adjusting color,
