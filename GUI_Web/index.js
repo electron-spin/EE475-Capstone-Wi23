@@ -24,6 +24,9 @@ const WEATHER_ENDPOINT =
       let hours = time.getHours();
       let minutes = time.getMinutes();
       let seconds = time.getSeconds();
+      hours = hours < 10 ? "0" + hours : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
 
       let timeElement = document.getElementById("time");
       timeElement.textContent = `${hours}:${minutes}:${seconds}`;
