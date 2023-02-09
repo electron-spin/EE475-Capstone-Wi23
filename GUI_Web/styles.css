@@ -1,0 +1,21 @@
+body {
+  /* Set background to black and text to white */
+  background-color: #000000;
+  color: #ffffff;
+
+  /* increase font size */
+  font-size: 3em;
+  padding: 30px;
+  text-align: center;
+}
+
+#date,
+#time {
+  font-size: 2em;
+  padding-top: 10px;
+}
+
+#weather {
+  /* move down */
+  padding-top: 2em;
+}
