@@ -1,0 +1,9 @@
+Transfer/
+*.txt
+.vscode/
+.venv/
+test
+reader
+*.o
+*.gch
+__pycache__/
