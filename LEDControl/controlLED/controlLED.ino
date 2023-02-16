@@ -5,6 +5,9 @@
 #define BRIGHTNESS 255
 #define LED_TYPE WS2812B
 #define COLOR_ORDER GRB
+
+#define NUM_STEPS 100
+
 CRGB leds[NUM_LEDS];
 
 void setup() {
@@ -14,10 +17,10 @@ void setup() {
 }
 
 void loop() {
-  
+
   if (Serial.available() >= 2) {
-    int brightnessValue = map(Serial.read(), 0, 10, 0, 255);
-    int colorValue = map(Serial.read(), 0, 10, 0, 255);
+    int brightnessValue = map(Serial.read(), 0, NUM_STEPS, 0, BRIGHTNESS);
+    int colorValue = map(Serial.read(), 0, NUM_STEPS, 0, BRIGHTNESS);
     for (int i = 0; i < NUM_LEDS; i++) {
       leds[i] = CHSV(colorValue, 0, brightnessValue);
 //       switch (colorValue) {
