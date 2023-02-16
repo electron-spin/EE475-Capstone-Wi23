@@ -4,6 +4,12 @@ import { makeRequest } from "./apiFunctions.js";
 const WEATHER_ENDPOINT =
   "https://api.open-meteo.com/v1/forecast?latitude=47.61&longitude=-122.33&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=ms&precipitation_unit=inch&timezone=America%2FLos_Angeles&hourly=precipitation";
 
+// TODO: Organize code into functions
+// TODO: Have shared memory between hand processor and web gui
+//       so the web gui can gain state information about the user's actions
+//       and display the correct information
+
+// TODO: Have a cursor that moves around the screen
 (function () {
   window.addEventListener("load", init);
 
