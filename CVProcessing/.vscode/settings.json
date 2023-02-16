@@ -1,0 +1,10 @@
+{
+  // Add venv to python path
+  "python.analysis.extraPaths": [
+      "${workspaceFolder}/venv/lib/python3.8/site-packages"
+  ],
+  "files.associations": {
+    "vector": "cpp",
+    "utility": "cpp"
+  }
+}
