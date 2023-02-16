@@ -6,7 +6,7 @@ HandProcessor::HandProcessor() : vertPadding(50), brightness(5), color(0), state
     //previousHandLandmarks = ;
     //previousHandLandmarks->point = make_pair(-1,-1);
 
-    levelChangeThreshold = (HEIGHT - (vertPadding*2)) / 10;
+    levelChangeThreshold = (HEIGHT - (vertPadding*2)) / NUM_STEPS;
 
 }
 
@@ -66,9 +66,9 @@ bool HandProcessor::isPinching(pair<int,int> thumbLandmark, pair<int,int> indexL
 //}
 
 int HandProcessor::adjustValue(pair<int,int> indexLandmark) {
-    int newValue = 10 - (indexLandmark.second - vertPadding) / levelChangeThreshold;
+    int newValue = NUM_STEPS - (indexLandmark.second - vertPadding) / levelChangeThreshold;
     if (newValue < 0) return 0;
-    else if (newValue > 10) return 10;
+    else if (newValue > NUM_STEPS) return NUM_STEPS;
     return newValue;
 }
 

@@ -17,7 +17,8 @@ class HandProcessor {
     const int WIDTH = 690;
 
     // arbitrary distance between thumb and index finger to detect a pinch
-    const int pinchThreshold = 15;
+    const int pinchThreshold = 25;
+    const int NUM_STEPS = 100;
 
     // roughly 300 (height) / 10 (levels) = 30
     int vertPadding; // padding on both the top and bottom to ignore
@@ -57,7 +58,7 @@ class HandProcessor {
 
     private:
 
-    // Serial object for sending data to ESP32.    
+    // Serial object for sending data to ESP32.
     Serial ser_;
 
     /**
@@ -93,7 +94,7 @@ class HandProcessor {
      * @brief Calculates a value based on the current position of the
      * index finger landmark.
      * @param indexLandmark The current index finger landmarks.
-     * @return The calculated value in the range 0-10.
+     * @return The calculated value in the range 0-255 inclusive.
      */
     int adjustValue(pair<int,int> indexLandmark);
 
