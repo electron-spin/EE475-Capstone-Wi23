@@ -48,6 +48,9 @@ void HandProcessor::processHandLandmarks(vector<pair<int,int>> landmark) {
     } else state = 0;
 
     this->ser_.send(brightness, color);
+
+    // TODO: send a position to web app gui
+    // lookback to reader.cpp
 }
 
 bool HandProcessor::isThumbLeftSide(pair<int,int> thumbLandmark) {
