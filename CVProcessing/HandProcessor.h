@@ -13,7 +13,7 @@ using namespace std;
 class HandProcessor {
     public:
 
-    const int HEIGHT = 300;
+    const int HEIGHT = 350;
     const int WIDTH = 690;
 
     // arbitrary distance between thumb and index finger to detect a pinch
