@@ -58,9 +58,8 @@ bool HandProcessor::isThumbLeftSide(pair<int,int> thumbLandmark) {
 }
 
 bool HandProcessor::isPinching(pair<int,int> thumbLandmark, pair<int,int> indexLandmark) {
-    int xDiff = thumbLandmark.first - indexLandmark.first;
-    int yDiff = thumbLandmark.second - indexLandmark.second;
-    return pow(xDiff, 2) + pow(yDiff, 2) < pow(pinchThreshold, 2);
+    int distance = getPinchDistance(thumbLandmark, indexLandmark);
+    return distance < pinchThreshold;
 }
 
 // Possibly deprecate

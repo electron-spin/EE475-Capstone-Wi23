@@ -1,0 +1,15 @@
+{
+  "name": "gui_web",
+  "version": "1.0.0",
+  "description": "GUI for Smart Mirror",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "setup": "npm i"
+  },
+  "author": "Jin Terada",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

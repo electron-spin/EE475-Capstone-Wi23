@@ -1,0 +1,45 @@
+body {
+  /* Set background to black and text to white */
+  background-color: #000000;
+  color: #ffffff;
+
+  /* increase font size */
+  font-size: 3em;
+  padding: 30px;
+  text-align: center;
+}
+
+#date,
+#time {
+  font-size: 2em;
+  padding-top: 10px;
+}
+
+#weather {
+  /* move down */
+  padding-top: 2em;
+}
+
+#cursor {
+  /* a circle of 1em diameter */
+  border-radius: 0.5em;
+  height: 1em;
+  width: 1em;
+  /* make transparent */
+  opacity: 0.5;
+  position: absolute;
+
+  /* move down */
+  /* left: 50%; */
+  /* top: 25%; */
+}
+
+.unpinched {
+  /* yellow background color */
+  background-color: #ffff00;
+}
+
+.pinched {
+  /* red background color */
+  background-color: #ff0000;
+}
