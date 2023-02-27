@@ -20,12 +20,15 @@ const PINCH_THRESHOLD = 25;
   window.addEventListener("load", init);
 
   let cursorState = [0, 0, false];
+  let lastClicked = false;
+  let hovered = [];
 
   async function init() {
     //initalize
     setTime();
     setDate();
     updateWeather();
+    initDropdown();
 
     /**
      * Updated every minute (60,000 milliseconds):
@@ -52,6 +55,7 @@ const PINCH_THRESHOLD = 25;
     setInterval(() => {
       updateCursorPosition();
       setCursor();
+      checkClick();
     }, 50);
   }
 
@@ -66,11 +70,9 @@ const PINCH_THRESHOLD = 25;
     cursorElement.style.top = cursorState[1] + "%";
 
     if (cursorState[2]) {
-      console.log("pinched");
       cursorElement.classList.add("pinched");
       cursorElement.classList.remove("unpinched");
     } else {
-      console.log("unpinched");
       cursorElement.classList.add("unpinched");
       cursorElement.classList.remove("pinched");
     }
@@ -87,6 +89,45 @@ const PINCH_THRESHOLD = 25;
     } catch (err) {
       console.error("Error: " + err);
     }
+  }
+
+  /**
+   * Checks if the cursor is over a clickable element and pinched at the same time.
+   * If so, it will click it.
+   */
+  function checkClick() {
+    let cursorElement = document.getElementById("cursor");
+    let coords = cursorElement.getBoundingClientRect();
+    let [x, y] = [coords.x, coords.y];
+
+    let elements = document.elementsFromPoint(x, y);
+
+    // remove all hovers
+    hovered.forEach(element => element.classList.remove("hover"));
+    hovered = [];
+
+    elements.forEach(element => {
+      hovered.push(element);
+    });
+
+    // add hover to all elements
+    hovered.forEach(element => element.classList.add("hover"));
+
+    if (!lastClicked && cursorState[2]) {
+      elements.forEach(element => {
+        element.click();
+      });
+      lastClicked = true;
+    } else if (lastClicked && !cursorState[2]) {
+      lastClicked = false;
+    }
+    // the position of toggling menu
+    // if (x >= 10 && x <= 50 && y >= 0 && y <= 45) {
+    //   if (cursorState[2]) {
+    //     // send a click to the menu button
+    //     document.querySelector(".menuToggle").click();
+    //   }
+    // }
   }
 
   /**
@@ -121,6 +162,22 @@ const PINCH_THRESHOLD = 25;
       Math.round((cursorPositions[1] * 100) / 350),
       pinched
     ];
+
+    // make it easier to reach top left corner
+    cursorPositions[0] -= 10;
+    cursorPositions[1] -= 10;
+
+    if (cursorPositions[0] < 0) {
+      cursorPositions[0] = 0;
+    } else if (cursorPositions[0] > 100) {
+      cursorPositions[0] = 100;
+    }
+
+    if (cursorPositions[1] < 0) {
+      cursorPositions[1] = 0;
+    } else if (cursorPositions[1] > 100) {
+      cursorPositions[1] = 100;
+    }
 
     return cursorPositions;
   }
@@ -191,5 +248,16 @@ const PINCH_THRESHOLD = 25;
   async function getWeatherData() {
     let weatherData = await makeRequest(WEATHER_ENDPOINT);
     return weatherData;
+  }
+
+  /**
+   * Initalizes the dropdown menu event listeners
+   */
+  function initDropdown() {
+    let navButton = document.querySelector(".menuToggle");
+    let nav = document.querySelector(".navigation");
+    navButton.addEventListener("click", () => {
+      nav.classList.toggle("active");
+    });
   }
 })();
