@@ -66,11 +66,11 @@ const PINCH_THRESHOLD = 25;
     cursorElement.style.top = cursorState[1] + "%";
 
     if (cursorState[2]) {
-      console.log("pinched");
+      // console.log("pinched");
       cursorElement.classList.add("pinched");
       cursorElement.classList.remove("unpinched");
     } else {
-      console.log("unpinched");
+      // console.log("unpinched");
       cursorElement.classList.add("unpinched");
       cursorElement.classList.remove("pinched");
     }

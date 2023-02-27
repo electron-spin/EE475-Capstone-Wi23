@@ -7,9 +7,12 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const {SpotifyManager} = require('./spotifyManager')
 // multer not needed for now
 
 const fs = require("fs");
+
+const PORT = process.env.PORT || 8080;
 
 /**
  * Endpoint: /getHandData
@@ -23,6 +26,9 @@ app.get("/getHandData", (req, res) => {
   res.send(data);
 });
 
+const spotifyManager = new SpotifyManager(app, PORT);
+spotifyManager.initRequestHandlers();
+
 app.use("/", express.static(path.join(__dirname, "/static")));
-const PORT = process.env.PORT || 8080;
 app.listen(PORT);
+console.log(`listening at http://localhost:${PORT}`);
