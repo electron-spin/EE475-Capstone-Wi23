@@ -164,8 +164,17 @@ const PINCH_THRESHOLD = 25;
     ];
 
     // make it easier to reach top left corner
-    cursorPositions[0] -= 10;
-    cursorPositions[1] -= 10;
+    if (cursorPositions[0] < 45) {
+      cursorPositions[0] -= 10;
+    } else if (cursorPositions[0] > 55) {
+      cursorPositions[0] += 10;
+    }
+
+    if (cursorPositions[1] < 45) {
+      cursorPositions[1] -= 10;
+    } else if (cursorPositions[1] > 55) {
+      cursorPositions[1] += 10;
+    }
 
     if (cursorPositions[0] < 0) {
       cursorPositions[0] = 0;
