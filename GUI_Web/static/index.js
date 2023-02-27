@@ -65,10 +65,21 @@ const PINCH_THRESHOLD = 25;
     cursorElement.style.left = cursorState[0] + "%";
     cursorElement.style.top = cursorState[1] + "%";
 
+    const wasPinched = cursorElement.classList.contains("pinched");
+
     if (cursorState[2]) {
       // console.log("pinched");
       cursorElement.classList.add("pinched");
       cursorElement.classList.remove("unpinched");
+
+      // on key down, but pinch
+      if (!wasPinched) {
+        let elt = document.elementFromPoint(
+          window.innerWidth * cursorState[0] / 100,
+          window.innerHeight * cursorState[1] / 100
+        );
+        if (elt) elt.click();
+      }
     } else {
       // console.log("unpinched");
       cursorElement.classList.add("unpinched");
