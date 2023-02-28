@@ -4,16 +4,16 @@ import time
 
 
 class HandDetector():
-    def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.6):
+    def __init__(self, mode=False, maxHands=2, modelComplexity=1, detectionCon=0.5, trackCon=0.6):
         # the version of mediapipe on Jetson Nano doesn't have model complexity
-        # self.modelComplex = modelComplexity
+        self.modelComplexity = modelComplexity
         self.mode = mode
         self.maxHands = maxHands
         self.detectionCon = detectionCon
         self.trackCon = trackCon
 
         self.mpHands = mp.solutions.hands
-        self.hands = self.mpHands.Hands(self.mode, self.maxHands,
+        self.hands = self.mpHands.Hands(self.mode, self.maxHands, self.modelComplexity,
                                         self.detectionCon, self.trackCon)
         self.mpDraw = mp.solutions.drawing_utils
 
@@ -28,8 +28,6 @@ class HandDetector():
                 if draw:
                     self.mpDraw.draw_landmarks(img, handLMS, self.mpHands.HAND_CONNECTIONS)
         return img
-
-
 
 
     def findPosition(self,img, handNum=0, draw=True):
