@@ -8,3 +8,5 @@ reader
 *.o
 *.gch
 __pycache__/
+.DS_Store
+spotify_credentials.json
