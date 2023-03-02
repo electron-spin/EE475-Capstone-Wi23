@@ -24,24 +24,33 @@ vector<pair<int,int>> convertToHandLandmarks(string stringLandmarks) {
     return landmarks;
 }
 
+/**
+ * @brief Reads from the shared memory text file
+ * @returns string of the file contents
+ */
+string readFile() {
+    string fileName = "../SharedMem.txt";
+    fstream file(fileName);
+    string result;
+    string buf;
+    if (file.is_open()) {
+        // keep reopening file since it's getting modified
+        // get all 7 lines
+        for (int i = 0; i < 7; i++) {
+            getline(file, buf);
+            result += buf + "\n";
+        }
+        file.close();
+    }
+    return result;
+}
+
 int main(int argc, char **argv) {
     HandProcessor processor;
 
     while (1) {
-    cout << "" << endl;
-        fstream file("../SharedMem.txt");
-        string result;
-        string buf;
-        if (file.is_open()) {
-            // keep reopening file since it's getting modified
-            // get all 7 lines
-            for (int i = 0; i < 7; i++) {
-                getline(file, buf);
-                result += buf + "\n";
-            }
-            file.close();
-        }
-
+        cout << "" << endl;
+        string result = readFile();
         vector<pair<int,int>> landmarks;
         try {
             landmarks = convertToHandLandmarks(result);

@@ -20,12 +20,13 @@ capture.set(3, wCam) # Set Display width
 capture.set(4, hCam) # Set Display height
 pTime = 0
 startTime = -1
-detector = hdm.HandDetector(detectionCon=0.7)
+detector = hdm.HandDetector(detectionCon=0.75, trackCon=0.65)
 
 open('../SharedMem.txt', 'w').close()
 currTime = time.time()
 while True:
     success, img = capture.read()
+    img = cv2.flip(img, 1)
     # img = cv2.resize(img, (wCam, hCam))
     # Draws the hand
     detector.findHands(img, draw=False)
@@ -35,14 +36,14 @@ while True:
             # turn 5 finger's positions into string
             output_string = "{\n"
             for key in fingers:
-                output_string += "\t{}:\tX:{} Y:{}\n".format(key, lmlist[fingers[key]][1], lmlist[fingers[key]][2])
+                output_string += "\t{}:\tX:{} Y:{}\n".format(key,lmlist[fingers[key]][1], lmlist[fingers[key]][2])
             output_string += "}\n"
 
             f.write(output_string)
             print(output_string)
 
-        x1, y1 = lmlist[fingers["THUMB"]][1], lmlist[fingers["THUMB"]][2]
-        x2, y2 = lmlist[fingers["INDEX"]][1], lmlist[fingers["INDEX"]][2]
+        x1, y1 = lmlist[fingers["THUMB"]][1],lmlist[fingers["THUMB"]][2]
+        x2, y2 = lmlist[fingers["INDEX"]][1],lmlist[fingers["INDEX"]][2]
         cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
 
         cv2.circle(img, (x1, y1), 10, (255, 0, 0), cv2.FILLED)
