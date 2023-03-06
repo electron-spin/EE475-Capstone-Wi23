@@ -22,7 +22,6 @@ pTime = 0
 startTime = -1
 detector = hdm.HandDetector(detectionCon=0.75, trackCon=0.65)
 
-open('../SharedMem.txt', 'w').close()
 currTime = time.time()
 while True:
     success, img = capture.read()

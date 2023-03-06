@@ -1,0 +1,5 @@
+# use python3.7
+mediapipe==0.8.5
+protobuf==3.20.*
+numpy==1.24.2
+opencv_python==4.7.0.68
