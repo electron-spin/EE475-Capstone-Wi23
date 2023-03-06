@@ -16,6 +16,7 @@ class HandDetector():
     #     self.hands = self.mpHands.Hands(self.mode, self.maxHands, self.modelComplexity,
     #                                     self.detectionCon, self.trackCon)
     #     self.mpDraw = mp.solutions.drawing_utils
+
     def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.6):
         # the version of mediapipe on Jetson Nano doesn't have model complexity
         # self.modelComplex = modelComplexity
@@ -40,7 +41,6 @@ class HandDetector():
                     self.mpDraw.draw_landmarks(img, handLMS, self.mpHands.HAND_CONNECTIONS)
         return img
 
-
     def findPosition(self,img, handNum=0, draw=True):
         lmlist = []
 
@@ -58,22 +58,22 @@ class HandDetector():
         return lmlist
 
 
-def main():
-    cap = cv2.VideoCapture(0)
-    detector = HandDetector()
-
-    while True:
-        success, img = cap.read()
-        img = detector.findHands(img)
-        lmlist = detector.findPosition(img)
-
-        cv2.imshow("Image", img)
-        cv2.waitKey(1)
-
-        # Quit Condition
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-
-if __name__ == "__main__":
-    main()
+# def main():
+#     cap = cv2.VideoCapture(0)
+#     detector = HandDetector()
+#
+#     while True:
+#         success, img = cap.read()
+#         img = detector.findHands(img)
+#         lmlist = detector.findPosition(img)
+#
+#         cv2.imshow("Image", img)
+#         cv2.waitKey(1)
+#
+#         # Quit Condition
+#         if cv2.waitKey(1) & 0xFF == ord('q'):
+#             break
+#
+#
+# if __name__ == "__main__":
+#     main()
