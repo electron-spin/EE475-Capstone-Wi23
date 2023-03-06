@@ -8,3 +8,7 @@ reader
 *.o
 *.gch
 __pycache__/
+# contains client secret
+spotify_credentials.json
+# from MacOS
+.DS_Store
