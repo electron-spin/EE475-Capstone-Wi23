@@ -1,0 +1,177 @@
+body {
+  /* Set background to black and text to white */
+  background-color: #000000;
+  color: #ffffff;
+
+  /* increase font size */
+  font-size: 3em;
+  padding: 30px;
+  text-align: center;
+  overflow: hidden;
+}
+
+#date,
+#time {
+  font-size: 2em;
+  padding-top: 10px;
+}
+
+#weather {
+  /* move down */
+  padding-top: 2em;
+}
+
+#cursor {
+  /* a circle of 1em diameter */
+  border-radius: 0.5em;
+  height: 1em;
+  width: 1em;
+  /* make transparent */
+  opacity: 0.5;
+  position: absolute;
+
+  /* move down */
+  /* left: 50%; */
+  /* top: 25%; */
+}
+
+.navigation {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+  justify-content: space-between;
+  transition: height 0.5s, width 0.5s;
+  transition-delay: 0s, 0.75s;
+  overflow: hidden;
+}
+
+.navigation.active {
+  width: 300px;
+  height: 400px;
+  /* box-shadow: 0 25px 35px rgba(247, 244, 244, 0.1); */
+  transition: width 0.5s, height 0.5s;
+  transition-delay: 0s, 0.75s;
+}
+
+.navigation .userBx {
+  position: relative;
+  width: 0px;
+  height: 60px;
+  background: rgb(239, 239, 239);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: 0.5s;
+  transition-delay: 0.5s;
+}
+
+.navigation.active .userBx {
+  width: calc(100% - 20px);
+  transition-delay: 0s;
+}
+
+.navigation .userBx .username {
+  white-space: nowrap;
+  color: rgb(23, 23, 23);
+  font-size: 0.9em;
+  margin-left: 20px;
+}
+
+.navigation .username {
+  /* hide */
+  opacity: 0;
+  transition: 1s;
+}
+
+.navigation.active .username {
+  /* show */
+  opacity: 1;
+  transition: 1s;
+}
+
+.menu {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 60px);
+  margin-top: 60px;
+  padding: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.menu li {
+  list-style: none;
+}
+
+.menu li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  font-size: 1em;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+
+.menu li a:hover,
+.menu li a.hover {
+  color: #4e65ff;
+}
+
+.menu li a ion-icon {
+  font-size: 1.5em;
+}
+
+.navigation .menuToggle {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  /* background: #fff; */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation .menuToggle::before {
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 2px;
+  background: rgb(255, 255, 255);
+  transform: translateY(-10px);
+  box-shadow: 0 10px rgb(255, 255, 255);
+  transition: 0.5s;
+}
+
+.navigation .menuToggle::after {
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 2px;
+  background: rgb(255, 255, 255);
+  transform: translateY(10px);
+  transition: 0.5s;
+}
+
+.navigation.active .menuToggle::before {
+  transform: translateY(0px) rotate(45deg);
+  box-shadow: 0 0 #555;
+}
+
+.navigation.active .menuToggle::after {
+  transform: translateY(0px) rotate(-45deg);
+}
+
+.unpinched {
+  /* yellow background color */
+  background-color: #ffff00;
+}
+
+.pinched {
+  /* red background color */
+  background-color: #ff0000;
+}
