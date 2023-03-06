@@ -12,3 +12,4 @@ __pycache__/
 spotify_credentials.json
 # from MacOS
 .DS_Store
+SharedMem.txt

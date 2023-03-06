@@ -25,6 +25,7 @@ class SpotifyManager {
   accessToken = null;
   refreshToken = null;
   expiresIn = null;
+  isAuthorized = false;
 
   constructor() {}
 
@@ -92,6 +93,7 @@ class SpotifyManager {
     this.accessToken = tokenData.access_token;
     this.refreshToken = tokenData.refresh_token;
     this.expiresIn = tokenData.expires_in;
+    this.isAuthorized = true;
   }
 
   /**
@@ -102,6 +104,11 @@ class SpotifyManager {
    * @returns data from request, or null if error.
    */
   request = async (method, url, body = undefined) => {
+    if (!this.isAuthorized) {
+      console.error('Not authorized yet.');
+      return null;
+    }
+
     for (let attempted = false; !attempted; attempted = true) {
       const response = await fetch(url, {
         method,
@@ -155,7 +162,7 @@ class SpotifyManager {
 }
 
 /**
- * 
+ * Helper function for authorization. Sends request for tokens.
  * @param {string} code Authorization code returned from Spotify redirect.
  * @returns access token, refresh token, and expiration in seconds.
  */

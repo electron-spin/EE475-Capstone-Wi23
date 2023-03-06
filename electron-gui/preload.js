@@ -1,9 +1,15 @@
 const fs = require('fs');
+const { contextBridge, ipcRenderer } = require('electron');
 const { makeRequest } = require('./apiFunctions.js');
 
 const WEATHER_ENDPOINT = "https://api.open-meteo.com/v1/forecast?latitude=47.61&longitude=-122.33&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=ms&precipitation_unit=inch&timezone=America%2FLos_Angeles&hourly=precipitation";
 
 const PINCH_THRESHOLD = 25;
+const HAND_POSITION_GAIN = 1.25;
+
+contextBridge.exposeInMainWorld('main', {
+  playback: (control) => ipcRenderer.invoke('playback', control),
+});
 
 window.addEventListener('DOMContentLoaded', () => {
   window.addEventListener("load", init);
@@ -146,36 +152,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // convert cursor position to a percentage of the screen
     // cursor position is 690 x 350
+    const [winWidth, winHeight] = [window.innerWidth, window.innerHeight];
     cursorPositions = [
       Math.round((cursorPositions[0] * 100) / 690),
       Math.round((cursorPositions[1] * 100) / 350),
       pinched
     ];
 
-    // make it easier to reach top left corner
-    if (cursorPositions[0] < 45) {
-      cursorPositions[0] -= 10;
-    } else if (cursorPositions[0] > 55) {
-      cursorPositions[0] += 10;
-    }
-
-    if (cursorPositions[1] < 45) {
-      cursorPositions[1] -= 10;
-    } else if (cursorPositions[1] > 55) {
-      cursorPositions[1] += 10;
-    }
-
-    if (cursorPositions[0] < 0) {
-      cursorPositions[0] = 0;
-    } else if (cursorPositions[0] > 100) {
-      cursorPositions[0] = 100;
-    }
-
-    if (cursorPositions[1] < 0) {
-      cursorPositions[1] = 0;
-    } else if (cursorPositions[1] > 100) {
-      cursorPositions[1] = 100;
-    }
+    cursorPositions[0] = (cursorPositions[0] - 50) * HAND_POSITION_GAIN + 50;
+    cursorPositions[1] = (cursorPositions[1] - 50) * HAND_POSITION_GAIN + 50;
 
     return cursorPositions;
   }
