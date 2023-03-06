@@ -1,72 +1,9 @@
 const fs = require('fs');
+const { makeRequest } = require('./apiFunctions.js');
 
 const WEATHER_ENDPOINT = "https://api.open-meteo.com/v1/forecast?latitude=47.61&longitude=-122.33&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=ms&precipitation_unit=inch&timezone=America%2FLos_Angeles&hourly=precipitation";
 
 const PINCH_THRESHOLD = 25;
-
-/**
- * Makes a request to the bigtwos depending on the passed in endpoint and
- * returns the response.
- * @param {string} url The endpoint to make the request to.
- * @param {Object.<string, string|FormData>} requestOptions An optional parameter which is an empty object
- * by default (for GET requests). Should contain the parameters and options for
- * any POST requests made.
- * @return {(object|string)} A JSON object or a plaintext string depending on the
- * format of the response.
- */
-async function makeRequest(url, requestOptions = {}) {
-  try {
-    let response = await fetch(url, requestOptions);
-    await statusCheck(response);
-    let data = await response.text();
-    console.log("successfull request");
-    return isValidJSON(data);
-  } catch (err) {
-    throw err;
-  }
-}
-
-/**
- * Helper function to return the response's result text if successful, otherwise
- * returns the rejected Promise result with an error status and corresponding text
- * @param {object} res - response to check for success/error
- * @return {object} - valid response if response was successful, otherwise rejected
- *                    Promise result
- */
-async function statusCheck(res) {
-  console.log("in status check");
-  try {
-    if (!res.ok) {
-      console.log("res not okay");
-      let text = await res.text();
-      if (res.status == 402) {
-        window.location.reload();
-      } else {
-        throw new Error("non 402 error:\n" + text);
-      }
-    }
-    console.log("status good");
-    return res;
-  } catch (err) {
-    throw err;
-  }
-}
-
-/**
- * Checks whether the passed in string is a valid JSON string.
- * @param {string} data The string to check.
- * @return {(object|string)} The parsed JSON object if the string is valid JSON,
- * or the original string if not.
- */
-function isValidJSON(data) {
-  let json;
-  try {
-    json = JSON.parse(data);
-  } catch (e) {
-    return data;
-  }
-  return json;
-}
 
 window.addEventListener('DOMContentLoaded', () => {
   window.addEventListener("load", init);
