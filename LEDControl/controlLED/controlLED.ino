@@ -1,7 +1,7 @@
 #include <FastLED.h>
 
 #define LED_PIN 32
-#define NUM_LEDS 60
+#define NUM_LEDS 90
 #define BRIGHTNESS 255
 #define LED_TYPE WS2812B
 #define COLOR_ORDER GRB
@@ -17,12 +17,18 @@ void setup() {
 }
 
 void loop() {
+<<<<<<< Updated upstream
 
+=======
+//  if (Serial.available()){
+//    Serial.println(Serial.read());
+//  }
+>>>>>>> Stashed changes
   if (Serial.available() >= 2) {
     int brightnessValue = map(Serial.read(), 0, NUM_STEPS, 0, BRIGHTNESS);
     int colorValue = map(Serial.read(), 0, NUM_STEPS, 0, BRIGHTNESS);
     for (int i = 0; i < NUM_LEDS; i++) {
-      leds[i] = CHSV(colorValue, 0, brightnessValue);
+      leds[i] = CHSV(colorValue, 255, brightnessValue);
 //       switch (colorValue) {
 //         case 0:
 //           leds[i] = CRGB::Red;

@@ -6,7 +6,8 @@ HardwareSerial Uart0(UART_NUM);
 
 void setup() 
 {
-  Uart0.begin(115200, SERIAL_8N1, 19, 18);
+  Serial.begin(115200);
+  Uart0.begin(115200, SERIAL_8N1, 3, 1);
 }
 
 void loop() 
@@ -16,6 +17,10 @@ void loop()
     int data = Uart0.read();
     Serial.println(data);
   }
+//  else {
+//    Serial.println("no data receieved");
+//  }
+//  Serial.println("test");
 }
 
 
