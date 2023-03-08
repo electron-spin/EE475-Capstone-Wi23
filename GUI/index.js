@@ -3,7 +3,7 @@ const path = require('path');
 const { SpotifyManager } = require('./spotify')
 const fs = require('fs');
 
-const createWindow = () => {
+const createWindow = async () => {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -16,7 +16,22 @@ const createWindow = () => {
   win.maximize();
 
   const spotifyManager = new SpotifyManager();
-  spotifyManager.authorize();
+  await spotifyManager.authorize();
+
+  // transfer playback to jetson
+  const devicesResponse = await spotifyManager.request(
+    'GET', 'https://api.spotify.com/v1/me/player/devices'
+  );
+  const jetsonDevice = devicesResponse
+    && devicesResponse.devices.find(d => d.name === 'jetson_spotifyd');
+  if (jetsonDevice) {
+    await spotifyManager.request(
+      'PUT', 'https://api.spotify.com/v1/me/player',
+      {
+        device_ids: [ jetsonDevice.id ]
+      }
+    );
+  }
   
   ipcMain.handle('playback', (_event, control) => {
     switch (control) {

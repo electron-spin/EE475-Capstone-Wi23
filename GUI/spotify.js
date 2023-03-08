@@ -116,7 +116,7 @@ class SpotifyManager {
           'Authorization': 'Bearer ' + this.accessToken,
           'Content-Type': 'application/json'
         },
-        body: body && new URLSearchParams(body),
+        body: JSON.stringify(body),
       });
 
       // if expired token, refresh and try once more
@@ -125,10 +125,12 @@ class SpotifyManager {
           continue;
       }
   
-      if (response.status !== 200)
+      if (response.status >= 300)
         return null;
 
-      return await response.json();
+      if (method === 'GET')
+        return await response.json();
+      return true;
     }
   }
 
