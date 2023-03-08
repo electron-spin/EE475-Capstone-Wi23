@@ -1,0 +1,44 @@
+#playback-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  max-width: 60%;
+}
+
+#playback-info p {
+  margin: 0;
+  padding: 0;
+  font-size: 0.6em;
+} 
+
+#playback-info #playback-title {
+  font-size: 0.8em;
+  margin-bottom: 0.2em;
+}
+
+#playback-controls {
+  display: flex;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+#playback-controls button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  height: 12em;
+  outline: none;
+  background-color: transparent;
+  border: none;
+}
+
+#playback-controls button img {
+  height: 100%;
+  width: 100%;
+  filter: invert(1);
+}
+
+#playback-controls button:active img {
+  filter: invert(0.7);
+}

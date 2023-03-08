@@ -58,6 +58,10 @@ const createWindow = async () => {
     return fs.readFileSync("../SharedMem.txt", "utf8");
   })
 
+  ipcMain.handle('spotifyRequest', async (_e, method, url, body) => {
+    return await spotifyManager.request(method, url, body);
+  })
+
   win.loadFile('renderer/index.html');
 }
 

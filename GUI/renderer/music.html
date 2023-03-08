@@ -10,6 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src *;">
     <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./music.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <title>Smart Mirror GUI</title>
 </head>
 
@@ -38,11 +42,26 @@
 
     <h1>Music</h1>
 
+    <div id="playback-info">
+        <p id="playback-title"></p>
+        <p id="playback-artist"></p>
+        <p id="playback-album"></p>
+        <p id="playback-progress"></p>
+    </div>
+
     <div id="playback-controls">
-        <button type="button" id="playback-prev">Prev</button>
-        <button type="button" id="playback-play">Play</button>
-        <button type="button" id="playback-pause">Pause</button>
-        <button type="button" id="playback-next">Next</button>
+        <button type="button" id="playback-prev">
+            <img src="./assets/skip-backward-fill.svg" />
+        </button>
+        <button type="button" id="playback-play">
+            <img src="./assets/play-fill.svg" />
+        </button>
+        <button type="button" id="playback-pause">
+            <img src="./assets/pause-fill.svg" />
+        </button>
+        <button type="button" id="playback-next">
+            <img src="./assets/skip-forward-fill.svg" />
+        </button>
     </div>
 
     <script src="./cursor.js"></script>
