@@ -15,8 +15,6 @@ const createWindow = () => {
   });
   win.maximize();
 
-  win.webContents.openDevTools();
-
   const spotifyManager = new SpotifyManager();
   spotifyManager.authorize();
   
