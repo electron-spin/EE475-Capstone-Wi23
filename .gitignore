@@ -5,6 +5,7 @@ Transfer/
 test
 reader
 *.o
+*.out
 *.gch
 __pycache__/
 # contains client secret

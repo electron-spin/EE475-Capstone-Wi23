@@ -5,7 +5,7 @@
  * @param {FormData} formData A form data object containing the parameters for the request.
  * @returns {Object|string} A JSON object or plaintext containing the response from the endpoint.
  */
-async function makePostRequest(url, formData) {
+export async function makePostRequest(url, formData) {
   const requestOptions = {
     method: "POST",
     body: formData,
@@ -26,7 +26,7 @@ async function makePostRequest(url, formData) {
  * @return {(object|string)} A JSON object or a plaintext string depending on the
  * format of the response.
  */
-async function makeRequest(url, requestOptions = {}) {
+export async function makeRequest(url, requestOptions = {}) {
   try {
     let response = await fetch(url, requestOptions);
     await statusCheck(response);
@@ -45,7 +45,7 @@ async function makeRequest(url, requestOptions = {}) {
  * @return {object} - valid response if response was successful, otherwise rejected
  *                    Promise result
  */
-async function statusCheck(res) {
+export async function statusCheck(res) {
   console.log("in status check");
   try {
     if (!res.ok) {
@@ -70,7 +70,7 @@ async function statusCheck(res) {
  * @return {(object|string)} The parsed JSON object if the string is valid JSON,
  * or the original string if not.
  */
-function isValidJSON(data) {
+export function isValidJSON(data) {
   let json;
   try {
     json = JSON.parse(data);
@@ -79,5 +79,3 @@ function isValidJSON(data) {
   }
   return json;
 }
-
-module.exports = { makePostRequest, makeRequest, statusCheck, isValidJSON };

@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { SpotifyManager } = require('./spotify')
+const fs = require('fs');
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -36,7 +37,15 @@ const createWindow = () => {
     }
   });
 
-  win.loadFile('index.html');
+  ipcMain.handle('loadPage', async (_event, pagePath) => {
+    await win.loadFile('renderer/' + pagePath);
+  });
+
+  ipcMain.handle('readFile', () => {
+    return fs.readFileSync("../SharedMem.txt", "utf8");
+  })
+
+  win.loadFile('renderer/index.html');
 }
 
 app.whenReady().then(() => {

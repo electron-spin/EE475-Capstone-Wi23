@@ -78,7 +78,7 @@ class SpotifyManager {
   
     authWindow.show();
     // loading screen
-    await authWindow.loadFile('./loading.html');
+    await authWindow.loadFile('./renderer/loading.html');
     // don't await this because the redirect messes it up, just await
     // authPromise
     authWindow.loadURL(authUrl);

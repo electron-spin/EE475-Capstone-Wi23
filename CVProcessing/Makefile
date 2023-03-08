@@ -16,5 +16,5 @@ serial.o: serial.cpp serial.h
 	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm -f *.o *.gch reader
+	rm -f *.o *.gch *.out reader
 
