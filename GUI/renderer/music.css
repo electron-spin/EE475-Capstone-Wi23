@@ -5,15 +5,32 @@
   max-width: 60%;
 }
 
-#playback-info p {
+#playback-info p:not(#playback-title) {
   margin: 0;
   padding: 0;
   font-size: 0.6em;
 } 
 
-#playback-info #playback-title {
+#playback-title {
   font-size: 0.8em;
   margin-bottom: 0.2em;
+}
+
+#playback-progress {
+  margin: 1em 0;
+  display: flex;
+  justify-content: start;
+  background-color: transparent;
+  height: 0.15em;
+  width: 10em;
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+#playback-progress-fill {
+  height: 100%;
+  background-color: white;
 }
 
 #playback-controls {

@@ -22,13 +22,16 @@ const updatePlaybackInfo = async () => {
   
   const { progress_ms, item } = res;
 
-  document.getElementById('playback-title').textContent = item.name;
-  document.getElementById('playback-artist').textContent = item.artists[0].name;
-  document.getElementById('playback-album').textContent = item.album.name;
-  document.getElementById('playback-progress').textContent = 
-    `${Math.round(progress_ms / 1000)} s / ${Math.round(item.duration_ms / 1000)} s`;
+  document.getElementById('playback-title')
+    .textContent = item.name;
+  document.getElementById('playback-artist')
+    .textContent = item.artists.map(a => a.name).join(', ');
+  document.getElementById('playback-album')
+    .textContent = item.album.name;
+  document.getElementById('playback-progress-fill')
+    .style.width = `${100 * progress_ms / item.duration_ms}%`;
 }
 updatePlaybackInfo();
 
 // periodically update playback info
-window.setInterval(updatePlaybackInfo, 2000);
+window.setInterval(updatePlaybackInfo, 1000);
