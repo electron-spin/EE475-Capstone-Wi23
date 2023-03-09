@@ -1,7 +1,7 @@
 const PINCH_THRESHOLD = 25;
 const HAND_POSITION_GAIN = 1.25;
 const DAMPING_FACTOR = 0.25;
-const ACCELERATION = 0.04;
+// const ACCELERATION = 0.04;
 
 let cursorState = [0, 0, false];
 let lastClicked = false;
@@ -33,17 +33,14 @@ function setCursor() {
   let cursorElement = document.getElementById("cursor");
 
   // gradually move the cursor to the new position with a damping factor and
-  // acceleration for a smooth transition
   let x = parseInt(cursorElement.style.left);
   let y = parseInt(cursorElement.style.top);
   let newX = cursorState[0];
   let newY = cursorState[1];
   let diffX = newX - x;
   let diffY = newY - y;
-  cursorElement.style.left =
-    x + diffX * DAMPING_FACTOR + diffX * ACCELERATION ** 2 + "%";
-  cursorElement.style.top =
-    y + diffY * DAMPING_FACTOR + ACCELERATION ** 2 + "%";
+  cursorElement.style.left = x + diffX * DAMPING_FACTOR + "%";
+  cursorElement.style.top = y + diffY * DAMPING_FACTOR + "%";
 
   if (cursorState[2]) {
     cursorElement.classList.add("pinched");
