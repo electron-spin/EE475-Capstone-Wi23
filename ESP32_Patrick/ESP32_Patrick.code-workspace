@@ -2,18 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../CV"
-		},
-		{
-			"path": "../CVProcessing"
-		},
-		{
-			"path": "../GUI_Web"
-		},
-		{
-			"path": "../LEDControl"
 		}
 	],
 	"settings": {}
